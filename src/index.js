@@ -74,21 +74,24 @@ function contains(selector, text) {
 }
 
 function set() {
-  if (this.innerHTML !== EMPTY) {
-    return;
-  }
-  this.innerHTML = turn;
-  moves += 1;
-  score[turn] += this.identifier;
-  if (win(this)) {
-    alert("Winner: Player " + turn);
-    startNewGame();
-  } else if (moves === N_SIZE * N_SIZE) {
-    alert("Draw");
-    startNewGame();
-  } else {
-    turn = turn === "X" ? "O" : "X";
-  }
+    if (this.innerHTML !== EMPTY) {
+        return;
+    }
+    this.innerHTML = turn;
+    moves += 1;
+    score[turn] += this.identifier;
+    if (win(this)) {
+        if (turn == 'X') {
+            alert('Player 1 won!');
+        } else alert('Player 2 won!');
+
+        startNewGame();
+    } else if (moves === N_SIZE * N_SIZE) {
+        alert('Draw');
+        startNewGame();
+    } else {
+        turn = turn === 'X' ? 'O' : 'X';
+    }
 }
 
 init();
