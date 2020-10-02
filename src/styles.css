@@ -1,0 +1,15 @@
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td {
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  vertical-align: center;
+  font-family: Helvetica;
+  font-size: 30px;
+}

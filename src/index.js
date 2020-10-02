@@ -2,14 +2,20 @@ var N_SIZE = 5,
   EMPTY = "&nbsp;",
   boxes = [],
   turn = "X",
+  timerWidth = 0,
   score,
   moves;
 
 function init() {
+  /*
   var boardSize = prompt("Please enter board size:", "3");
   if (boardSize != null) {
     N_SIZE = boardSize;
+  } else {
+    N_SIZE = 3;
   }
+  */
+
   var board = document.createElement("table");
   board.setAttribute("border", 1);
   board.setAttribute("border-spacing", 0);
@@ -24,10 +30,10 @@ function init() {
       cell.setAttribute("width", 60);
       cell.setAttribute("align", "center");
       cell.classList.add("col" + j, "row" + i);
-      if (i == j) {
+      if (i === j) {
         cell.classList.add("diagonal0");
       }
-      if (j == N_SIZE - i - 1) {
+      if (j === N_SIZE - i - 1) {
         cell.classList.add("diagonal1");
       }
       cell.identifier = identifier;
@@ -40,6 +46,7 @@ function init() {
 
   document.getElementById("board").appendChild(board);
   startNewGame();
+  progressBar();
 }
 
 function startNewGame() {
@@ -49,8 +56,10 @@ function startNewGame() {
   };
   moves = 0;
   turn = "X";
+  timerWidth = 0;
   boxes.forEach(function (square) {
     square.innerHTML = EMPTY;
+    square.style.backgroundColor = "white";
   });
 }
 
@@ -59,7 +68,7 @@ function win(clicked) {
   for (var i = 0; i < memberOf.length; i++) {
     var testClass = "." + memberOf[i];
     var items = contains("#board " + testClass, turn);
-    if (items.length == N_SIZE) {
+    if (items.length === N_SIZE) {
       return true;
     }
   }
@@ -73,25 +82,54 @@ function contains(selector, text) {
   });
 }
 
-function set() {
-    if (this.innerHTML !== EMPTY) {
-        return;
-    }
-    this.innerHTML = turn;
-    moves += 1;
-    score[turn] += this.identifier;
-    if (win(this)) {
-        if (turn == 'X') {
-            alert('Player 1 won!');
-        } else alert('Player 2 won!');
-
-        startNewGame();
-    } else if (moves === N_SIZE * N_SIZE) {
-        alert('Draw');
-        startNewGame();
+function progressBar() {
+  var progressBar = document.getElementById("myBar");
+  var id = setInterval(frame, 100);
+  function frame() {
+    if (timerWidth >= 100) {
+      swapTurn();
     } else {
-        turn = turn === 'X' ? 'O' : 'X';
+      timerWidth++;
+      progressBar.style.width = timerWidth + "%";
+      progressBar.innerHTML = parseInt(timerWidth / 10) + "";
     }
+  }
+}
+
+function swapTurn() {
+  if (turn === "X") {
+    turn = "O";
+    document.getElementById("turn").textContent = "Player 2";
+  } else {
+    turn = "X";
+    document.getElementById("turn").textContent = "Player 1";
+  }
+  timerWidth = 0;
+}
+
+function set() {
+  if (this.innerHTML !== EMPTY) {
+    return;
+  }
+  this.innerHTML = turn;
+  moves += 1;
+  score[turn] += this.identifier;
+  if (win(this)) {
+    if (turn === "X") {
+      alert("Player 1 won!");
+    } else alert("Player 2 won!");
+    startNewGame();
+  } else if (moves === N_SIZE * N_SIZE) {
+    alert("Draw");
+    startNewGame();
+  } else {
+    if (turn === "X") {
+      this.style.backgroundColor = "rgb(124, 252, 0)";
+    } else {
+      this.style.backgroundColor = "rgb(250, 128, 114)";
+    }
+    swapTurn();
+  }
 }
 
 init();
