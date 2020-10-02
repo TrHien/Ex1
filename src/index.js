@@ -7,22 +7,29 @@ var N_SIZE = 5,
   moves;
 
 function init() {
+  // Input the size of custom board
   var boardSize = prompt("Please enter board size:", "3");
-  if (boardSize != null) {
-    N_SIZE = parseInt(boardSize, 10);
+  if (boardSize === null || boardSize === "") {
+    boardSize = N_SIZE;
   } else {
-    N_SIZE = 3;
+    N_SIZE = parseInt(boardSize, 10);
   }
 
+  // Create table
   var board = document.createElement("table");
   board.setAttribute("border", 1);
   board.setAttribute("border-spacing", 0);
 
   var identifier = 1;
+
   for (var i = 0; i < N_SIZE; i++) {
+    // Create row element in the table
     var row = document.createElement("tr");
+    // Append row into table
     board.appendChild(row);
+
     for (var j = 0; j < N_SIZE; j++) {
+      // Create cell element of the table
       var cell = document.createElement("td");
       cell.setAttribute("height", 60);
       cell.setAttribute("width", 60);
@@ -89,7 +96,7 @@ function progressBar() {
     } else {
       timerWidth++;
       progressBar.style.width = timerWidth + "%";
-      progressBar.innerHTML = parseInt(timerWidth / 10) + "";
+      progressBar.innerHTML = parseInt(timerWidth / 10, 10) + "";
     }
   }
 }
