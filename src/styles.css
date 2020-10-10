@@ -12,3 +12,10 @@ td {
   font-family: Helvetica;
   font-size: 30px;
 }
+
+.player1 {
+  background-color: rgb(124, 252, 0);
+}
+.player2 {
+  background-color: rgb(250, 128, 114);
+}

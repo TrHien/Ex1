@@ -64,7 +64,7 @@ function startNewGame() {
   timerWidth = 0;
   boxes.forEach(function (square) {
     square.innerHTML = EMPTY;
-    square.style.backgroundColor = "white";
+    square.classList.remove("player1", "player2");
   });
 }
 
@@ -129,9 +129,9 @@ function set() {
     startNewGame();
   } else {
     if (turn === "X") {
-      this.style.backgroundColor = "rgb(124, 252, 0)";
+      this.classList.add("player1");
     } else {
-      this.style.backgroundColor = "rgb(250, 128, 114)";
+      this.classList.add("player2");
     }
     swapTurn();
   }
