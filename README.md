@@ -1,2 +1,2 @@
 # Ex1
-Created with CodeSandbox
+Tic-Tac-Toe game with custom board size.
